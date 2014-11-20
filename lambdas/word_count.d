@@ -1,8 +1,8 @@
 #! /usr/bin/env rdmd
 
-/* count words from stdin */
+import std.stdio, std.string, std.algorithm; 
 
-import std.stdio, std.string; 
+/* count words from stdin */
 
 /* compte le nombre d'occurences d'un mot à partir de l'entrée standard */
 
@@ -15,8 +15,10 @@ void main() {
             ++freqs[word.idup]; 
         
     // Print counts 
+    string[] words = freqs.keys;
+    //lambda
+    sort!((a,b){return freqs[a] >  freqs[b];})(words);
     
-    foreach (key, value; freqs) {
-        writefln("%6u\t%s",value,key);
-    }
+    foreach (word; words) 
+        writefln("%6u\t%s",freqs[word],word);
 }
